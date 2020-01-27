@@ -8,35 +8,36 @@ public class StyleExample {
     public static void main(String[] args) throws FileNotFoundException {
 
         FileReader in = new FileReader("grades.txt");
-        Scanner s = new Scanner(in);
+        Scanner scanner = new Scanner(in);
 
-        int n = s.nextInt(); s.nextLine();
-        item[] arr = new item[n];
-        int i=0;
-        while(s.hasNext()) { String l; item i2;
-            l= s.nextLine();
-            i2 = new item(l);
-            if(i2.g < 60)
+        Grade grades = new Grade[numberOfStudent]
+        int current = scanner.nextInt(); scanner.nextLine();
+            grades[] arr = new grades[][current];
+        int numberOfStudent=0;
+        while(scanner.hasNext()) { String l; grades i2;
+            l= scanner.nextLine();
+            i2 = new grades(l);
+            if(i2.grade < 60)
                 System.out.println(i2);
-            arr[i++] = i2;
+            arr[numberOfStudent++] = i2;
         }
 
-        if(i != n)
+        if(numberOfStudent != current)
             return;
 
         double s2 = 0;
-        for(item i2 : arr)
-            s2 += i2.g;
+        for(grades i2 : arr)
+            s2 += i2.grade;
 
-        double a = s2 / n;
+        double a = s2 / current;
 
         Arrays.sort(arr);
 
         double m;
-        if(n % 2 == 0)
-            m = (arr[n / 2].g + arr[n / 2 - 1].g) / 2;
+        if(current % 2 == 0)
+            m = (arr[current / 2].getGrade() + arr[current / 2 - 1].getGrade()) / 2;
         else
-            m = arr[n / 2].g;
+            m = arr[current / 2].getGrade();
 
         System.out.println(a);
         System.out.println(m);
