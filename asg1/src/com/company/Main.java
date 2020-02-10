@@ -6,8 +6,8 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) throws IOException {
-        File file1 = new File("420-406-AB Data Structures (Winter 2020)/asg1/data/test5/in1.txt");
-        File file2 = new File("420-406-AB Data Structures (Winter 2020)/asg1/data/test5/in2.txt");
+        File file1 = new File("420-406-AB Data Structures (Winter 2020)/asg1/data/test4/in1.txt");
+        File file2 = new File("420-406-AB Data Structures (Winter 2020)/asg1/data/test4/in2.txt");
         String output = "out.txt";
         Merge(file1, file2, output);
     }
