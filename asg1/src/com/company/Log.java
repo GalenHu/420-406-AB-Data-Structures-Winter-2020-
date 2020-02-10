@@ -21,14 +21,24 @@ public class Log implements Comparable<Log> {
     private SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS");
 
     // Constructors
-    public Log(String line){
+    public Log(String line) throws Exception{
         String[] data = line.split("\\s+");
 
-        ipAddress = new IPAddress(data[0]);
+        try {
+            ipAddress = new IPAddress(data[0]);
+        }
+        catch (Exception e){
+            throw new Exception("Error: Bad IP address" + ipAddress.toString());
+        }
         serviceName = data[1];
         String time = data[2].concat(" "+data[3]);
         ParsePosition position = new ParsePosition(0);
-        timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time,position);
+        try {
+            timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time, position);
+        }
+        catch (Exception e){
+            throw new Exception("Error: Bad Date" + timestamp.toString());
+        }
         length = Integer.parseInt(data[4]);
     }
 
