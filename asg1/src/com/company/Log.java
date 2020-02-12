@@ -24,6 +24,7 @@ public class Log implements Comparable<Log> {
     public Log(String line) throws Exception{
         String[] data = line.split("\\s+");
 
+        //If wrong ip, throw error
         try {
             ipAddress = new IPAddress(data[0]);
         }
@@ -31,21 +32,23 @@ public class Log implements Comparable<Log> {
             throw new Exception("Error: bad Ip address" + ipAddress.toString());
         }
         serviceName = data[1];
+        //if there is no service name, throw error
         if (serviceName.length() == 0)
             throw new Exception("Error: Service name is empty");
         String time = data[2].concat(" "+data[3]);
         ParsePosition position = new ParsePosition(0);
+        //if the number of character to describe the time is exactly 23, it work, otherwise, bad timestamp
         if (time.length() != 23)
             throw new Exception("Error: Bad date format" + timestamp.toString());
         timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time, position);
         length = Integer.parseInt(data[4]);
+        //if there is no length, length is missing
         if (length == 0)
             throw new Exception("Error: Length is missing");
     }
 
 
     // Getters and setters
-    // TODO
     public Date getDate(){
         return timestamp;
     }
@@ -80,7 +83,6 @@ public class Log implements Comparable<Log> {
 
     @Override
     public String toString() {
-        System.out.println(ipAddress + "\t" + serviceName + " \t" + dateFormat.format(timestamp) +"\t"+ length);
         return ipAddress + "\t" + serviceName + " \t" + dateFormat.format(timestamp) +"\t"+ length;
     }
 }

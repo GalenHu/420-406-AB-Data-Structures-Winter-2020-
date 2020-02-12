@@ -14,21 +14,22 @@ public class Main {
 
     public static void Merge(File in1, File in2, String out) throws IOException{
 
-        Scanner scanner1 = new Scanner(in1);
-        Scanner scanner2 = new Scanner(in2);
-
-        Log log1 = null;
-        Log log2 = null;
-        boolean firstTime = true;
-        Log tmp = null;
-        int count1 = 1;
-        int count2 = 1;
+        // Variable for the merge
+        Scanner scanner1 = new Scanner(in1);    //scanner1 for in1
+        Scanner scanner2 = new Scanner(in2);    //scanner2 for in2
+        Log log1 = null;                        //log associate with scanner1
+        Log log2 = null;                        //log associate with scanner1
+        boolean firstTime = true;               //bool deciding if its the first time passing through the loop
+        Log tmp = null;                         //tmp will represent the last printed line
+        int count1 = 1;                         //line counter for in1
+        int count2 = 1;                         //line counter for in2
 
 
         PrintWriter printWriter = new PrintWriter(out);
 
         //While both file have a next line
         while (scanner1.hasNextLine() && scanner2.hasNextLine()) {
+            // if its the first time passing this loop, log1 and log2 have a value.
             if (firstTime) {
                 try {
                     log1 = new Log(scanner1.nextLine());
@@ -46,7 +47,8 @@ public class Main {
                 count2++;
 
                 firstTime = false;
-            } else {
+            } else      //second time or more time passing though
+                {
                 if (log1.compareTo(log2) == -1 && scanner1.hasNextLine()) { //not first time passing, smallest and still have a line
                     try {
                         log1 = new Log(scanner1.nextLine());
@@ -65,9 +67,11 @@ public class Main {
                     }
                 }
             }
+            // if log1 is smaller, he get printed
             if (log1.compareTo(log2) == -1) {
                 printWriter.println(log1.toString());
                 tmp = log1;
+                //if log 2 is smaller, he gets printed
             } else if (log2.compareTo(log1) == -1) {
                 printWriter.println(log2.toString());
                 tmp = log2;
@@ -101,7 +105,7 @@ public class Main {
             tmp = log2;
         }
 
-        //because of .hasnextline, the last one will never get output
+        //because of .hasnextline, the last one will never get outputed
         //This will output the last one
         if (log1 == tmp && log2 != null)
             printWriter.println(log2.toString());

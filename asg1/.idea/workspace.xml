@@ -105,15 +105,4 @@
     </state>
     <state x="342" y="147" key="new project wizard/0.0.1920.1040/1920.226.1366.728@0.0.1920.1040" timestamp="1581474334460" />
   </component>
-  <component name="XDebuggerManager">
-    <breakpoint-manager>
-      <breakpoints>
-        <line-breakpoint enabled="true" type="java-line">
-          <url>file://$PROJECT_DIR$/src/com/company/Log.java</url>
-          <line>40</line>
-          <option name="timeStamp" value="1" />
-        </line-breakpoint>
-      </breakpoints>
-    </breakpoint-manager>
-  </component>
 </project>
