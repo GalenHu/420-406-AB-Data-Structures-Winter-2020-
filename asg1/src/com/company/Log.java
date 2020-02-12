@@ -24,17 +24,23 @@ public class Log implements Comparable<Log> {
     public Log(String line) throws Exception{
         String[] data = line.split("\\s+");
 
-        ipAddress = new IPAddress(data[0]);
-        serviceName = data[1];
-        String time = data[2].concat(" "+data[3]);
-        ParsePosition position = new ParsePosition(0);
-        try{
-        timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time, position);
+        try {
+            ipAddress = new IPAddress(data[0]);
         }
         catch (Exception e){
-            throw new Exception("Error: Bad date" + timestamp.toString());
+            throw new Exception("Error: bad Ip address" + ipAddress.toString());
         }
+        serviceName = data[1];
+        if (serviceName.length() == 0)
+            throw new Exception("Error: Service name is empty");
+        String time = data[2].concat(" "+data[3]);
+        ParsePosition position = new ParsePosition(0);
+        if (time.length() != 23)
+            throw new Exception("Error: Bad date format" + timestamp.toString());
+        timestamp = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.SSS").parse(time, position);
         length = Integer.parseInt(data[4]);
+        if (length == 0)
+            throw new Exception("Error: Length is missing");
     }
 
 

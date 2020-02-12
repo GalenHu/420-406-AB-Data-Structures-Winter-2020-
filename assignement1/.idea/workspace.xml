@@ -17,6 +17,9 @@
     <option name="showExcludedFiles" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
+  <component name="PropertiesComponent">
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../asg1" />
+  </component>
   <component name="RunManager">
     <configuration name="Main" type="Application" factoryName="Application" temporary="true">
       <option name="MAIN_CLASS_NAME" value="com.company.Main" />
@@ -47,9 +50,17 @@
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="1184" y="334" key="#com.intellij.ide.util.MemberChooser/0.0.1920.1040/1920.226.1366.728@0.0.1920.1040" timestamp="1580951279727" />
+    <state x="732" y="426" key="FileChooserDialogImpl" timestamp="1581473680473">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="732" y="426" key="FileChooserDialogImpl/0.0.1920.1040/1920.226.1366.728@0.0.1920.1040" timestamp="1581473680473" />
     <state x="668" y="348" key="com.intellij.ide.util.TipDialog" timestamp="1580950747712">
       <screen x="0" y="0" width="1920" height="1040" />
     </state>
     <state x="668" y="348" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.226.1366.728@0.0.1920.1040" timestamp="1580950747712" />
+    <state x="375" y="176" width="1200" height="782" key="dock-window-1" timestamp="1581473546814">
+      <screen x="0" y="0" width="1920" height="1040" />
+    </state>
+    <state x="375" y="176" width="1200" height="782" key="dock-window-1/0.0.1920.1040/1920.226.1366.728@0.0.1920.1040" timestamp="1581473546814" />
   </component>
 </project>
