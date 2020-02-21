@@ -100,7 +100,11 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
      * @return
      */
     public T min() {
-        throw new RuntimeException("Not implemented.");
+        if(!isEmpty()){
+            return elements[0];
+        }
+        else
+            return null;
     }
 
     /**
@@ -108,16 +112,20 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
      * @return
      */
     public T max() {
-        throw new RuntimeException("Not implemented.");
+        if(!isEmpty()){
+            return elements[front];
+        }
+        else
+            return null;
     }
 
     /**
      * TODO
-     * @param first
-     * @param last
+     * @param low
+     * @param high
      * @return
      */
-    public SortedSet<T> subset(T first, T last) {
+    public SortedSet<T> subset(T low, T high) {
         throw new RuntimeException("Not implemented.");
     }
 
