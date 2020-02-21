@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="0c76a72e-9126-4943-a564-7d57283f9b0f" name="Default Changelist" comment="" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+  </component>
+  <component name="ProjectId" id="1Y0Fjw0B65qUJYqBeLcFX0hHpgc" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showExcludedFiles" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="Downloaded.Files.Path.Enabled" value="false" />
+    <property name="Repository.Attach.Annotations" value="false" />
+    <property name="Repository.Attach.JavaDocs" value="false" />
+    <property name="Repository.Attach.Sources" value="false" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.15" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+  </component>
+  <component name="RunManager" selected="JUnit.SortedSetTest">
+    <configuration name="Unnamed" type="Application" factoryName="Application" nameIsGenerated="true">
+      <option name="MAIN_CLASS_NAME" value="ca.qc.johnabbott.cs406.Main" />
+      <module name="assignments" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="SortedSetTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="assignments" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="ca.qc.johnabbott.cs406.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="ca.qc.johnabbott.cs406" />
+      <option name="MAIN_CLASS_NAME" value="ca.qc.johnabbott.cs406.SortedSetTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <list>
+      <item itemvalue="Application.Unnamed" />
+      <item itemvalue="JUnit.SortedSetTest" />
+    </list>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.SortedSetTest" />
+      </list>
+    </recent_temporary>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="0c76a72e-9126-4943-a564-7d57283f9b0f" name="Default Changelist" comment="" />
+      <created>1582071743452</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1582071743452</updated>
+    </task>
+    <servers />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="2195" y="252" key="#Project_Structure" timestamp="1582072130018">
+      <screen x="1920" y="226" width="1366" height="728" />
+    </state>
+    <state x="2195" y="252" key="#Project_Structure/0.0.1920.1040/1920.226.1366.728@1920.226.1366.728" timestamp="1582072130018" />
+    <state x="2146" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1582072197120">
+      <screen x="1920" y="226" width="1366" height="728" />
+    </state>
+    <state x="2146" y="241" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1040/1920.226.1366.728@1920.226.1366.728" timestamp="1582072197120" />
+    <state x="2383" y="348" key="FileChooserDialogImpl" timestamp="1582072126767">
+      <screen x="1920" y="226" width="1366" height="728" />
+    </state>
+    <state x="2383" y="348" key="FileChooserDialogImpl/0.0.1920.1040/1920.226.1366.728@1920.226.1366.728" timestamp="1582072126767" />
+    <state x="2106" y="226" key="SettingsEditor" timestamp="1582072319407">
+      <screen x="1920" y="226" width="1366" height="728" />
+    </state>
+    <state x="2106" y="226" key="SettingsEditor/0.0.1920.1040/1920.226.1366.728@1920.226.1366.728" timestamp="1582072319407" />
+    <state x="2311" y="418" key="com.intellij.ide.util.TipDialog" timestamp="1582247420859">
+      <screen x="1920" y="226" width="1366" height="728" />
+    </state>
+    <state x="2311" y="418" key="com.intellij.ide.util.TipDialog/0.0.1920.1040/1920.226.1366.728@1920.226.1366.728" timestamp="1582247420859" />
+    <state x="2307" y="492" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD" timestamp="1582072224691">
+      <screen x="1920" y="226" width="1366" height="728" />
+    </state>
+    <state x="2307" y="492" key="com.intellij.jarRepository.RepositoryAttachDialog-DOWNLOAD/0.0.1920.1040/1920.226.1366.728@1920.226.1366.728" timestamp="1582072224691" />
+  </component>
+</project>

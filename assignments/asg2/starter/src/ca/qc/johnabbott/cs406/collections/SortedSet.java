@@ -11,6 +11,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     private T[] elements;
     private int size;
+    private int front;
 
     public SortedSet() {
         this(DEFAULT_CAPACITY);
@@ -18,6 +19,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     public SortedSet(int capacity) {
         this.size = 0;
+        this.front = 0;
         this.elements = (T[]) new Comparable[capacity];
 
     }
@@ -30,27 +32,67 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     @Override
     public boolean containsAll(Set<T> rhs) {
-        throw new RuntimeException("Not implemented.");
+        boolean[] myContains = new boolean[elements.length];
+        int index = 0;
+        int count = 0;
+        int trueCount = 0;
+
+        for (T item:elements) {
+            count++;
+            if(rhs.contains(item)){
+                myContains[index++] = true;
+            }
+            else
+                myContains[index++] = false;
+        }
+        for (int i = 0; i < myContains.length ; i++) {
+            if (myContains[i] == true){
+                trueCount++;
+            }
+        }
+        if(count == trueCount)
+            return true;
+        else
+            return false;
     }
 
     @Override
     public boolean add(T elem) {
-        throw new RuntimeException("Not implemented.");
+        T tmp;
+        if(Arrays.binarySearch(elements,elem) >=0)
+            return false;
+        if (!isFull()){
+            elements[front++] = elem;
+            size++;
+            return true;
+        }
+        else
+            return false;
     }
 
     @Override
     public boolean remove(T elem) {
-        throw new RuntimeException("Not implemented.");
+        if(Arrays.binarySearch(elements,elem) >=0) {
+            for (int i = 0; i < elements.length; i++) {
+                if (elements[i] == elem) {
+                    elements[i] = null;
+                    size--;
+                    return true;
+                }
+            }
+            return false;
+        }
+        else return false;
     }
 
     @Override
     public int size() {
-        throw new RuntimeException("Not implemented.");
+        return size;
     }
 
     @Override
     public boolean isEmpty() {
-        throw new RuntimeException("Not implemented.");
+        return size == 0;
     }
 
     /**
