@@ -43,9 +43,6 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
     public boolean add(T elem) { //do binary sort and put it were its suppose to do
         if(isFull())
             throw new FullSetException();
-        if (isEmpty()){
-            elements
-        }
         size++;
         for (int i = 0; i < size ; i++) {
             if (elem.compareTo(elements[i]) == -1){
@@ -55,7 +52,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
             }
         }
 
-
+return false;
     }
 
     @Override
@@ -101,7 +98,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
      */
     public T max() {
         if(!isEmpty()){
-            return elements[front];
+            return elements[size];
         }
         else
             return null;
