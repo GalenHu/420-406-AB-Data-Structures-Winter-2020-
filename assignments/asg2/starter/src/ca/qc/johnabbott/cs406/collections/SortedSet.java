@@ -43,13 +43,14 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
     public boolean add(T elem) { //do binary sort and put it were its suppose to do
         if(isFull())
             throw new FullSetException();
-        size++;
-        for (int i = 0; i < size ; i++) {
-            if (elem.compareTo(elements[i]) == -1){
-                int high = i;
-                int low = i-1;
-                break;
-            }
+        if (Arrays.binarySearch(elements,elem) >= 0)
+            return false;
+
+        int left = 0;
+        int right = elements.length;
+        int mid = right/2;
+        while (left +1 == mid){
+            
         }
 
 return false;
