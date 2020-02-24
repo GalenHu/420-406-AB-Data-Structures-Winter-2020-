@@ -11,6 +11,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     private T[] elements;
     private int size;
+    private int front;
 
     public SortedSet() {
         this(DEFAULT_CAPACITY);
@@ -19,7 +20,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
     public SortedSet(int capacity) {
         this.size = 0;
         this.elements = (T[]) new Comparable[capacity];
-
+        this.front = 0;
     }
 
     @Override
@@ -43,32 +44,42 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
     public boolean add(T elem) { //do binary sort and put it were its suppose to do
         if(isFull())
             throw new FullSetException();
-        if (Arrays.binarySearch(elements,elem) >= 0)
+
+        if (Arrays.binarySearch(elements,0,size,elem) >= 0) //if element is inside, return false
             return false;
 
-        int left = 0;
-        int right = elements.length;
-        int mid = right/2;
-        while (left +1 == mid){
-            
+        if(isEmpty()){
+            elements[0] = elem;
+            size++;
+            return true;
         }
 
-return false;
+        int tmp = 0;
+
+        for (int i = 0; i < size; i++) {
+            if(elem.compareTo(elements[i]) > 0){
+                tmp = i;
+            }
+        }
+        size++;
+        for (int i = size; i > tmp ; i--) {
+            elements[i] = elements[i-1];
+        }
+
+        elements[tmp] = elem;
+        return true;
     }
 
     @Override
     public boolean remove(T elem) {
-        if(Arrays.binarySearch(elements,elem) >=0) {
-            for (int i = 0; i < elements.length; i++) {
-                if (elements[i] == elem) {
-                    elements[i] = null;
-                    size--;
-                    return true;
-                }
+        int tmp = Arrays.binarySearch(elements,elem);
+        if(tmp >= 0) {
+            for (int i = tmp; i < size; i++) {
+                    elements[i] = elements[i+1];
             }
-            return false;
+            return true;
         }
-        else return false;
+        return false;
     }
 
     @Override
@@ -81,28 +92,32 @@ return false;
         return size == 0;
     }
 
-    /**
-     * TODO
-     * @return
-     */
-    public T min() {
-        if(!isEmpty()){
-            return elements[0];
-        }
-        else
-            return null;
+    @Override
+    public boolean isFull() {
+        return size == DEFAULT_CAPACITY;
     }
 
-    /**
-     * TODO
-     * @return
-     */
-    public T max() {
-        if(!isEmpty()){
-            return elements[size];
+    @Override
+    public String toString(){
+        String set = "";
+        for (T element: elements) {
+            set.concat(element + ", ");
         }
-        else
-            return null;
+        return set;
+    }
+
+    //
+
+    public T min() {
+    if (isEmpty())
+        throw new EmptySetException();
+    return elements[0];
+    }
+
+    public T max() {
+    if (isEmpty())
+        throw new EmptySetException();
+    return elements[size];
     }
 
     /**
@@ -111,33 +126,59 @@ return false;
      * @param high
      * @return
      */
+
+    //I assume low and high are integer, otherwise there is a infinity number of element between low and high
     public SortedSet<T> subset(T low, T high) {
-        throw new RuntimeException("Not implemented.");
-    }
+        if (low.compareTo(high) == 1)
+            throw new IndexOutOfBoundsException();
+        SortedSet<T> sortedSet = new SortedSet<T>();
+        // Find the index of Low
+        int left = 0;
+        int right = size;
+        int mid = right/2;
+        int lowIndex = 0;
+        int highIndex = 100;
 
+        for (int i = 0; i < size ; i++) {
+            if (elements[i].compareTo(low) >= 0){
+                lowIndex = i;
+                break;
+            }
+            else {
+                lowIndex = size+1;     //the lowest value in low is higher than everything else
+                return sortedSet;
+            }
+        }
+        //lowest index is found
 
-    @Override
-    public boolean isFull() {
-        throw new RuntimeException("Not implemented.");
-    }
+        for (int i = lowIndex; i < size ; i++) {
+            if (elements[i].compareTo(high) > 0){
+                highIndex = i;
+                break;
+            }
+        }
 
-    @Override
-    public String toString() {
-        throw new RuntimeException("Not implemented.");
+        for (int i = lowIndex; i < highIndex ; i++) {
+            sortedSet.add(elements[i]);
+        }
+        return sortedSet;
     }
 
     @Override
     public void reset() {
-        throw new RuntimeException("Not implemented.");
+        front = 0;
     }
 
     @Override
     public T next() {
-        throw new RuntimeException("Not implemented.");
+        if (!this.hasNext())
+            throw new RuntimeException();
+        front++;
+        return elements[front];
     }
 
     @Override
     public boolean hasNext() {
-        throw new RuntimeException("Not implemented.");
+        return front != size;
     }
 }
