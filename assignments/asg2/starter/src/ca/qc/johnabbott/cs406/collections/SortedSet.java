@@ -45,9 +45,6 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
         if(isFull())
             throw new FullSetException();
 
-        if (Arrays.binarySearch(elements,0,size,elem) >= 0) //if element is inside, return false
-            return false;
-
         if(isEmpty()){
             elements[0] = elem;
             size++;
@@ -57,8 +54,10 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
         int tmp = 0;
 
         for (int i = 0; i < size; i++) {
+            if (elem.compareTo(elements[i]) == 0)
+                return false;
             if(elem.compareTo(elements[i]) > 0){
-                tmp = i;
+                tmp = i+1;
             }
         }
         size++;
@@ -77,6 +76,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
             for (int i = tmp; i < size; i++) {
                     elements[i] = elements[i+1];
             }
+            size--;
             return true;
         }
         return false;
@@ -100,10 +100,13 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
     @Override
     public String toString(){
         String set = "";
-        for (T element: elements) {
-            set.concat(element + ", ");
+        for (int i = 0; i < size; i++) {
+            if (i < size-1)
+                set += elements[i] + ", ";
+            else
+                set += elements[i];
         }
-        return set;
+        return "{"+set+"}";
     }
 
     //
@@ -133,11 +136,8 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
             throw new IndexOutOfBoundsException();
         SortedSet<T> sortedSet = new SortedSet<T>();
         // Find the index of Low
-        int left = 0;
-        int right = size;
-        int mid = right/2;
         int lowIndex = 0;
-        int highIndex = 100;
+        int highIndex = DEFAULT_CAPACITY;
 
         for (int i = 0; i < size ; i++) {
             if (elements[i].compareTo(low) >= 0){
