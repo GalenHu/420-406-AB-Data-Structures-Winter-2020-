@@ -42,6 +42,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
         if(this.isEmpty() && !rhs.isEmpty())
             return false;
 
+        rhs.reset();
         for (int i = 0; i < rhs.size(); i++){
             if(rhs.hasNext()){
                 T tmp = rhs.next();
@@ -54,6 +55,8 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     @Override
     public boolean add(T elem) {
+        if(isFull() && Arrays.binarySearch(elements, 0, size, elem) >= 0)
+            return false;
         if(isFull())
             throw new FullSetException();
 
@@ -64,6 +67,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
             return true;
         }
 
+
         //Main loop
 
         int tmp = 0;
@@ -71,14 +75,16 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
         for (int i = 0; i < size; i++) {
             if (elem.compareTo(elements[i]) == 0)
                 return false;
-            if(elem.compareTo(elements[i]) > 0){
+            if(elem.compareTo(elements[i]) == 1){
                 tmp = i+1;
             }
         }
         size++;
-        for (int i = size; i > tmp ; i--) {
+        System.out.println(size);
+        for (int i = size-1; i > tmp ; i--) {
             elements[i] = elements[i-1];
         }
+        //if(modified == false) throw new TraversalException();
         elements[tmp] = elem;
         modified = true;
         return true;
@@ -86,12 +92,13 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     @Override
     public boolean remove(T elem) {
-        int tmp = Arrays.binarySearch(elements,elem);
+        int tmp = Arrays.binarySearch(elements, 0, size, elem);
         if(tmp >= 0) {
             for (int i = tmp; i < size; i++) {
                     elements[i] = elements[i+1];
             }
             size--;
+            //if(modified == false) throw new TraversalException();
             modified = true;
             return true;
         }
@@ -197,7 +204,7 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     @Override
     public T next() {
-        if (!hasNext())
+        if (!hasNext() || modified)
             throw new TraversalException();
         return elements[front++];
 
@@ -205,8 +212,6 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
 
     @Override
     public boolean hasNext() {
-        if(modified)
-            throw new TraversalException();
         return front < size;
     }
 }
