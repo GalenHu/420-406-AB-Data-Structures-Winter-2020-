@@ -99,7 +99,6 @@ public class SortedSet<T extends Comparable<T>> implements Set<T> {
                     elements[i] = elements[i+1];    //move elements to the left
             }
             size--;
-            //if(modified == false) throw new TraversalException();
             modified = true;
             return true;
         }
