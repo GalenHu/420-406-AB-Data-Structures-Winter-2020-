@@ -48,13 +48,14 @@ public class DFS implements Search{
         // track the current search location, starting at the terrain start location.
         Location current = terrain.getStart();
 
-        // start in a random direction. We will adjust this accordingly.
-        //Direction previous = generator.generate(random);
+        // start in up direction. We will adjust this accordingly.
+        Direction[] directions = {Direction.UP,Direction.RIGHT,Direction.DOWN,Direction.LEFT};
+        Direction previous = Direction.UP;
 
+        int directionCounter = 0;
         while(!current.equals(terrain.getGoal())) { //If current location is not goal
-
             // find the next direction
-            Direction direction = Direction.NONE;
+            Direction direction = directions[directionCounter++%4];
             Location next = current.get(previous);
 
             // change direction if we can't go in the previous direction, or with a 25% chance of changing direction
@@ -67,7 +68,7 @@ public class DFS implements Search{
                 while (checked.size() < 4) {
 
                     // get a random direction
-                    Direction tmp = generator.generate(random);
+                    Direction tmp = directions[directionCounter++%4];
                     checked.add(tmp);
 
                     // see if stepping in that direction is possible and do it!
