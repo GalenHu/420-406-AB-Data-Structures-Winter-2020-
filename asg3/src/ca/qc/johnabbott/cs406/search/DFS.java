@@ -56,9 +56,10 @@ public class DFS implements Search{
         while(!current.equals(terrain.getGoal())) { //If current location is not goal
             // find the next direction
             Direction direction = directions[directionCounter++%4];
+            System.out.println(directionCounter);
             Location next = current.get(previous);
 
-            // change direction if we can't go in the previous direction, or with a 25% chance of changing direction
+            // change direction if we can't go in the previous direction
             if((!terrain.inTerrain(next) || terrain.isWall(next)) || memory.get(next).getColor() != Color.WHITE) {
 
                 // keep track of what we've seen in a set of directions
