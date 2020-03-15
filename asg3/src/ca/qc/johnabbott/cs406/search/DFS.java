@@ -13,6 +13,7 @@ import ca.qc.johnabbott.cs406.terrain.Terrain;
 import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
+import java.util.Stack;
 
 public class DFS implements Search{
     // records where we've been and what steps we've taken.
@@ -41,6 +42,9 @@ public class DFS implements Search{
         defaultCell.setColor(Color.WHITE);
         memory = new SparseArray<>(defaultCell);
 
+        //Create stack of direction
+        Stack directionList = new Stack();
+
         // setup random direction generator. ... dont need random direction
         /*Random random = new Random(); //This is use to look for either going to next thing or not
         Generator<Direction> generator = Direction.generator();*/
@@ -55,11 +59,12 @@ public class DFS implements Search{
         int directionCounter = 0;
         while(!current.equals(terrain.getGoal())) { //If current location is not goal
             // find the next direction
-            Direction direction = directions[directionCounter++%4];
             System.out.println(directionCounter);
+            Direction direction = directions[directionCounter++%4];
             Location next = current.get(previous);
+            directionList.push(previous);
 
-            // change direction if we can't go in the previous direction
+            // change direction if we can't go in the previous direction ex:if cant go up, try right
             if((!terrain.inTerrain(next) || terrain.isWall(next)) || memory.get(next).getColor() != Color.WHITE) {
 
                 // keep track of what we've seen in a set of directions
@@ -69,6 +74,7 @@ public class DFS implements Search{
                 while (checked.size() < 4) {
 
                     // get a random direction
+                    //Direction enteredDirection = directions[directionCounter];
                     Direction tmp = directions[directionCounter++%4];
                     checked.add(tmp);
 
