@@ -30,8 +30,6 @@ public class Config {
                 return new DFS();
             case "BFS":
                 return new BFS();
-            case "DFS2":
-                return new DFS2();
             default:
                 throw new UnknownAlgorithm("Unknown search algorithm: " + algorithmName +
                         ". You will need add a case to \"getAlgorithmByName(..)\". Follow this stacktrace to see where to add it!");
