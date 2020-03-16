@@ -49,30 +49,16 @@ public class BFS2 implements Search {
 
         // make an array of direction
         Direction[] directionDonut = Direction.getClockwise();
-        int directionCounter;
+        int directionCounter = 0;
         Queue locationQueue = new Queue<>(terrain.getHeight()*terrain.getWidth());
         Queue directionQueue = new Queue(terrain.getHeight()*terrain.getWidth());
         memory.get(current).setColor(Color.BLACK);
         //locationQueue.enqueue(current);
 
-
         while(!current.equals(terrain.getGoal())) {
+            Direction direction = directionDonut[0];
 
-            directionCounter = 0;
-            // find the next available direction
-            Direction direction = directionDonut[directionCounter++%4];
-            /*
-            Location next = current.get(direction);
-
-            // change direction if we can't go in the next direction... ex: if cant go up, try right
-            if((!terrain.inTerrain(next) || terrain.isWall(next)) || memory.get(next).getColor() != Color.WHITE) {
-                directionCounter = 0;
-                // keep track of what we've seen in a set of directions
-
-
-             */
             Set<Direction> checked = new HashSet<>();
-            directionCounter = 0;
             while (checked.size() < 4) {
                 // check the next direction
                 Direction tmp = directionDonut[directionCounter++ % 4];
@@ -82,8 +68,9 @@ public class BFS2 implements Search {
                 Location next = current.get(tmp);
                 if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
                     locationQueue.enqueue(current.get(tmp));
-                    memory.get(current).setColor(Color.GREY);
-                    memory.get(current).setTo(tmp);
+                    //memory.get(current).setTo(tmp);
+                    memory.get(next).setColor(Color.GREY);
+                    System.out.println(memory);
                     directionQueue.enqueue(tmp);
                     direction = tmp;
                     //break;
