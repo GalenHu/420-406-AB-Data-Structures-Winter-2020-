@@ -43,7 +43,8 @@ public class DFS implements Search{
         memory = new SparseArray<>(defaultCell);
 
         //Create stack of direction
-        Stack directionList = new Stack();
+        Stack directionStack = new Stack();
+        directionStack.push(Direction.NONE);
 
         // setup random direction generator. ... dont need random direction
         /*Random random = new Random(); //This is use to look for either going to next thing or not
@@ -55,58 +56,97 @@ public class DFS implements Search{
         // start in up direction. We will adjust this accordingly.
         Direction[] directions = {Direction.UP,Direction.RIGHT,Direction.DOWN,Direction.LEFT};
         Direction previous = Direction.UP;
-
+        Location next = current.get(previous);
         int directionCounter = 0;
-        while(!current.equals(terrain.getGoal())) { //If current location is not goal
-            // find the next direction
-            System.out.println(directionCounter);
-            Direction direction = directions[directionCounter++%4];
-            Location next = current.get(previous);
-            directionList.push(previous);
+        Direction direction;
 
-            // change direction if we can't go in the previous direction ex:if cant go up, try right
+        boolean noAvailableRoute = false;
+
+        while(!current.equals(terrain.getGoal())) { //If current location is not goal
+
+            // change direction if we can't go in the next location ex:if cant go up, try right
             if((!terrain.inTerrain(next) || terrain.isWall(next)) || memory.get(next).getColor() != Color.WHITE) {
+
+
+                // find the next direction
+                direction = directions[++directionCounter%4];
 
                 // keep track of what we've seen in a set of directions
                 Set<Direction> checked = new HashSet<>();
+                //Add stack here?
+
 
                 // check in all directions randomly
+                int tmpDir = directionCounter%4;
                 while (checked.size() < 4) {
-
                     // get a random direction
                     //Direction enteredDirection = directions[directionCounter];
-                    Direction tmp = directions[directionCounter++%4];
+                    Direction tmp = directions[tmpDir++%4];
+                    System.out.println("check : "+ directions[tmpDir%4]);
                     checked.add(tmp);
 
                     // see if stepping in that direction is possible and do it!
                     next = current.get(tmp);
                     if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
                         previous = direction = tmp;
+                        directionStack.push(tmp);
                         break;
                     }
                 }
 
                 // if no direction was found, we are stuck and leave without solution
                 // see below on how foundSolution would normally be used.
-                if(direction == Direction.NONE) {
-                    foundSolution = false;
-                    return;
+                //
+                if(checked.size() > 3) {
+                    //foundSolution = false;
+                    //return;
+                    Direction initialGoBack = (Direction) directionStack.peek();
+                    Direction goBack;
+                    noAvailableRoute = true;
+                    while (directionStack.peek() == initialGoBack && directionStack.size() != 1){
+                        goBack = (Direction) directionStack.pop();
+                        switch (goBack) {
+                            case UP:
+                                current = current.get(Direction.DOWN);
+                                //memory.get(current).setTo(Direction.DOWN);
+                                break;
+                            case RIGHT:
+                                current = current.get(Direction.LEFT);
+                                //memory.get(current).setTo(Direction.LEFT);
+                                break;
+                            case DOWN:
+                                current = current.get(Direction.UP);
+                                //memory.get(current).setTo(Direction.UP);
+                                break;
+                            case LEFT:
+                                current = current.get(Direction.RIGHT);
+                                //memory.get(current).setTo(Direction.RIGHT);
+                                break;
+                        }
+                    }
                 }
 
             }
-            else
+            else {
                 direction = previous;
+                directionStack.push(direction);
+            }
 
             // record the step we've taken to memory to recreate the solution in the later traversal.
             memory.get(current).setTo(direction);
 
             // step
-            current = current.get(direction);
+            if(!noAvailableRoute){
+                current = current.get(direction);
+            }
+            noAvailableRoute = false;
 
             // record that we've been here
             memory.get(current).setColor(Color.BLACK);
 
             System.out.println(memory);
+
+            next = current.get(direction);
         }
 
         // we reached the goal and have a solution.
