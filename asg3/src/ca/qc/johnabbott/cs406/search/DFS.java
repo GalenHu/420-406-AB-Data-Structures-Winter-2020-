@@ -55,9 +55,9 @@ public class DFS implements Search {
 
         while(!current.equals(terrain.getGoal())) {
 
-            directionCounter = 0;
+            //directionCounter = 0;
             // find the next direction
-            Direction direction = directionDonut[directionCounter++%4];
+            Direction direction = directionDonut[0];
             Location next = current.get(direction);
 
             // change direction if we can't go in the next direction... ex: if cant go up, try right
@@ -66,9 +66,8 @@ public class DFS implements Search {
                 // keep track of what we've seen in a set of directions
                 Set<Direction> checked = new HashSet<>();
 
-                boolean foundAnotherWay = false;
                 // check in all directions randomly
-                while (!foundAnotherWay) {
+                while (true) {
 
                     if (checked.size() < 4) {
                         // get a random direction
@@ -79,7 +78,6 @@ public class DFS implements Search {
                         next = current.get(tmp);
                         if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
                             direction = tmp;
-                            foundAnotherWay = true;
                             break;
                         }
                     }
@@ -92,15 +90,6 @@ public class DFS implements Search {
                         checked.clear();
                     }
                 }
-
-
-                // if no direction was found, we are stuck and leave without solution
-                // see below on how foundSolution would normally be used.
-                if(direction == Direction.NONE){
-                    foundSolution = false;
-                    return;
-                }
-
             }
 
             // record the step we've taken to memory to recreate the solution in the later traversal.
@@ -108,6 +97,7 @@ public class DFS implements Search {
 
             // step
             current = current.get(direction);
+            if (!locationStack.isFull())
             locationStack.push(current);
 
             // record that we've been here

@@ -16,7 +16,7 @@ import java.util.HashSet;
 import java.util.Random;
 import java.util.Set;
 
-public class BFS implements Search {
+public class BFS2 implements Search {
 
     // records where we've been and what steps we've taken.
     private SparseArray<Cell> memory;
@@ -31,7 +31,7 @@ public class BFS implements Search {
     /**
      * Create a new Random search.
      */
-    public BFS() {
+    public BFS2() {
     }
 
     @Override
@@ -51,6 +51,7 @@ public class BFS implements Search {
         Direction[] directionDonut = Direction.getClockwise();
         int directionCounter;
         Queue locationQueue = new Queue<>(terrain.getHeight()*terrain.getWidth());
+        Queue directionQueue = new Queue(terrain.getHeight()*terrain.getWidth());
         memory.get(current).setColor(Color.BLACK);
         //locationQueue.enqueue(current);
 
@@ -60,42 +61,47 @@ public class BFS implements Search {
             directionCounter = 0;
             // find the next available direction
             Direction direction = directionDonut[directionCounter++%4];
+            /*
             Location next = current.get(direction);
 
             // change direction if we can't go in the next direction... ex: if cant go up, try right
             if((!terrain.inTerrain(next) || terrain.isWall(next)) || memory.get(next).getColor() != Color.WHITE) {
                 directionCounter = 0;
                 // keep track of what we've seen in a set of directions
-                Set<Direction> checked = new HashSet<>();
 
 
-                while (checked.size() < 4) {
-                        // check the next direction
-                        Direction tmp = directionDonut[directionCounter++ % 4];
-                        checked.add(tmp);
+             */
+            Set<Direction> checked = new HashSet<>();
+            directionCounter = 0;
+            while (checked.size() < 4) {
+                // check the next direction
+                Direction tmp = directionDonut[directionCounter++ % 4];
+                checked.add(tmp);
 
-                        // see if stepping in that direction is possible if possible, enqueue it to the queue
-                        next = current.get(tmp);
-                        if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
-                            locationQueue.enqueue(current.get(tmp));
-                            direction = tmp;
-                            //break;
-                        }
-
-                    if (checked.size() >= 4) {
-                        if (locationQueue.isEmpty()){
-                            foundSolution= false;
-                            return;
-                        }
-                        //current = (Location) locationQueue.dequeue();
-                    }
-
-
+                // see if stepping in that direction is possible if possible, enqueue it to the queue
+                Location next = current.get(tmp);
+                if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
+                    locationQueue.enqueue(current.get(tmp));
+                    memory.get(current).setColor(Color.GREY);
+                    memory.get(current).setTo(tmp);
+                    directionQueue.enqueue(tmp);
+                    direction = tmp;
+                    //break;
                 }
-                checked.clear();
-            }
 
+                if (checked.size() >= 4) {
+                    if (locationQueue.isEmpty()){
+                        foundSolution= false;
+                        return;
+                    }
+                    //current = (Location) locationQueue.dequeue();
+                }
+
+
+            }
+            checked.clear();
             // record the step we've taken to memory to recreate the solution in the later traversal.
+            //memory.get(current).setTo((Direction) directionQueue.dequeue());
             memory.get(current).setTo(direction);
 
             // step
@@ -106,12 +112,13 @@ public class BFS implements Search {
 
             System.out.println(memory);
         }
-
         // we reached the goal and have a solution.
         // see below on how foundSolution would normally be used.
         foundSolution = true;
 
     }
+
+
 
     @Override
     public void reset() {
