@@ -49,52 +49,44 @@ public class BFS implements Search {
 
         // make an array of direction
         Direction[] directionDonut = Direction.getClockwise();
-        int directionCounter;
+        int directionCounter = 0;
+        //Create a queue of location
         Queue locationQueue = new Queue<>(terrain.getHeight()*terrain.getWidth());
+        //Queue directionQueue = new Queue(terrain.getHeight()*terrain.getWidth());
         memory.get(current).setColor(Color.BLACK);
-        //locationQueue.enqueue(current);
 
+        Direction direction = directionDonut[0];
 
         while(!current.equals(terrain.getGoal())) {
 
-            directionCounter = 0;
-            // find the next available direction
-            Direction direction = directionDonut[directionCounter++%4];
-            Location next = current.get(direction);
+            Set<Direction> checked = new HashSet<>();
+            while (checked.size() < 4) {
+                // check the next direction
+                Direction tmp = directionDonut[directionCounter++ % 4];
+                checked.add(tmp);
 
-            // change direction if we can't go in the next direction... ex: if cant go up, try right
-            if((!terrain.inTerrain(next) || terrain.isWall(next)) || memory.get(next).getColor() != Color.WHITE) {
-                directionCounter = 0;
-                // keep track of what we've seen in a set of directions
-                Set<Direction> checked = new HashSet<>();
+                // see if stepping in that direction is possible if possible, enqueue it to the queue
+                Location next = current.get(tmp);
+                if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
+                    locationQueue.enqueue(current.get(tmp));
 
-
-                while (checked.size() < 4) {
-                        // check the next direction
-                        Direction tmp = directionDonut[directionCounter++ % 4];
-                        checked.add(tmp);
-
-                        // see if stepping in that direction is possible if possible, enqueue it to the queue
-                        next = current.get(tmp);
-                        if (terrain.inTerrain(next) && !terrain.isWall(next) && memory.get(next).getColor() == Color.WHITE) {
-                            locationQueue.enqueue(current.get(tmp));
-                            direction = tmp;
-                            //break;
-                        }
-
-                    if (checked.size() >= 4) {
-                        if (locationQueue.isEmpty()){
-                            foundSolution= false;
-                            return;
-                        }
-                        //current = (Location) locationQueue.dequeue();
-                    }
-
-
+                    //Record that we have seen that place
+                    memory.get(next).setColor(Color.GREY);
+                    System.out.println(memory);
+                    //directionQueue.enqueue(tmp);
+                    direction = tmp;
+                    //break;
                 }
-                checked.clear();
-            }
 
+                //all size has been check and
+                if (checked.size() >= 4 && locationQueue.isEmpty()) {
+                    foundSolution= false;
+                    return;
+                }
+
+
+            }
+            checked.clear();
             // record the step we've taken to memory to recreate the solution in the later traversal.
             memory.get(current).setTo(direction);
 
@@ -106,12 +98,13 @@ public class BFS implements Search {
 
             System.out.println(memory);
         }
-
         // we reached the goal and have a solution.
         // see below on how foundSolution would normally be used.
         foundSolution = true;
 
     }
+
+
 
     @Override
     public void reset() {
