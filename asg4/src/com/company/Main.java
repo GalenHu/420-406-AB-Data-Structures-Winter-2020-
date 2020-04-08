@@ -3,24 +3,33 @@ package com.company;
 import com.sun.net.httpserver.Filter;
 
 import java.util.EmptyStackException;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 import java.util.Stack;
 
 public class Main {
 
     public static void main(String[] args) {
-        //TODO: Remove comment bellow to run the real program
-        /*
-        int n =Requirement("How many element in the chain");
-        int m = Requirement("Number of element to count clockwise?");
-        int o = Requirement("Number of element to count anti-clockwise?");
-         */
-        DonutLink(5,0,4);
+        Scanner scanner = new Scanner(System.in);
+        //get user input
+        try{
+            System.out.println("How many element in the chain");
+            int n = scanner.nextInt();
+            System.out.println("Number of element to count clockwise?");
+            int m= scanner.nextInt();
+            System.out.println("Number of element to count anti-clockwise?");
+            int o = scanner.nextInt();
 
-
+            System.out.println(donutLink(n,m,o));
+        }
+        catch (InputMismatchException exception){
+            System.err.println("Error: Please enter a valid number (integer)");;
+        }
     }
 
+    //DoubleLink class
     private static class DoubleLink<T> {
+        //field
         public T element;
         public DoubleLink<T> next;
         public DoubleLink<T> prev;
@@ -28,6 +37,7 @@ public class Main {
 
         public Stack<DoubleLink<T>> linkStack = new Stack();
 
+        //constructor
         public DoubleLink() {
         }
 
@@ -35,14 +45,14 @@ public class Main {
             this.element = element;
         }
 
+        //build the Link method
         public DoubleLink<T> build(int n) {
-            if (n <= 0) throw new EmptyStackException();
-            //DoubleLink<T> head;
-
+            if (n <= 0) throw new InputMismatchException();
             //build the first element
             head = new DoubleLink(1);
             linkStack.push(head);
 
+            //build rest of doubleLink
             DoubleLink<T> current = head;
             for (int i = 2; i <= n; i++) {
                 DoubleLink<T> tmp = current;
@@ -51,48 +61,50 @@ public class Main {
                 current.prev = tmp;
                 linkStack.push(current);
             }
+
+            //set .next and .prev for the first and last element
             current.next = head;
             head.prev = current;
-
             return head;
         }
-
     }
 
-    //Todo: Parse input... only accept positive integer
-    static int Requirement(String s){
-        Scanner userInput = new Scanner(System.in);
-        System.out.println(s);
-        int input = userInput.nextInt();
-        return input;
-    }
+    //Donut Link/chain function
+    static String donutLink (int size, int clockwise, int antiClockwise){
+        if(clockwise+antiClockwise <= 0) throw new InputMismatchException(); //check if it will remove from at least one side
 
-    static void DonutLink (int size, int clockwise, int antiClockwise){
+        String output = "";
         DoubleLink doubleLink = new DoubleLink();
         doubleLink.build(size);
-        //DoubleLink head = doubleLink.build(size);
+
         DoubleLink tmp = doubleLink.head;
-        DoubleLink tmpNext = new DoubleLink();
-        DoubleLink tmpPrev = new DoubleLink();
+        DoubleLink tmpNext;
+        DoubleLink tmpPrev;
 
         int sizeCounter = size;
+
+        System.out.println("n>"+size+"\nm>"+clockwise+"\no>"+antiClockwise); //output the user input
+
+        //Main removing loop
         while(sizeCounter>0) {
 
+            //Check clockwise
             if(clockwise>0){
                 for (int m = 0; m < clockwise-1; m++){
                     tmp=tmp.next;
                 }
                 tmpNext = tmp.next;
                 tmpPrev = tmp.prev;
-                //tmp dissapear completely
+                //tmp disappear completely
                 tmpNext.prev = tmp.prev;
                 tmpPrev.next = tmp.next;
-                System.out.println(tmp.element.toString());
+                output = output + tmp.element.toString() + " ";
                 sizeCounter--;
                 if (sizeCounter<=0)
                     break;
                 tmp = tmp.next;
             }
+            //Check anticlockwise
             if(antiClockwise>0) {
                 for (int m = 0; m < antiClockwise - 1; m++) {
                     tmp = tmp.prev;
@@ -102,10 +114,11 @@ public class Main {
                 //tmp dissapear completely
                 tmpNext.prev = tmp.prev;
                 tmpPrev.next = tmp.next;
-                System.out.println(tmp.element.toString());
+                output = output + tmp.element.toString() + " ";
                 sizeCounter--;
                 tmp = tmp.next;
             }
         }
+        return output;
     }
 }
