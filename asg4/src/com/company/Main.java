@@ -35,7 +35,6 @@ public class Main {
         public DoubleLink<T> prev;
         public DoubleLink<T> head;
 
-        public Stack<DoubleLink<T>> linkStack = new Stack();
 
         //constructor
         public DoubleLink() {
@@ -50,7 +49,6 @@ public class Main {
             if (n <= 0) throw new InputMismatchException();
             //build the first element
             head = new DoubleLink(1);
-            linkStack.push(head);
 
             //build rest of doubleLink
             DoubleLink<T> current = head;
@@ -59,7 +57,6 @@ public class Main {
                 current.next = new DoubleLink(i);
                 current = current.next;
                 current.prev = tmp;
-                linkStack.push(current);
             }
 
             //set .next and .prev for the first and last element
@@ -111,7 +108,7 @@ public class Main {
                 }
                 tmpNext = tmp.next;
                 tmpPrev = tmp.prev;
-                //tmp dissapear completely
+                //tmp disappear completely
                 tmpNext.prev = tmp.prev;
                 tmpPrev.next = tmp.next;
                 output = output + tmp.element.toString() + " ";
