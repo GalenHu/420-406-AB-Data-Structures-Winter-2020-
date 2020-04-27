@@ -197,7 +197,7 @@ public class Profiler {
         marks.clear();
         return sections;
     }
-    
+
     @Override
     public String toString() {
         // print all marks using formatting.
