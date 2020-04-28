@@ -153,17 +153,15 @@ public class Profiler {
                     //add run count to region
                     stringRegionMap.get(section.getSectionLabel()).addRun();
                     iterator = stringRegionMap.keySet().iterator();
-                    Object key;
 
                     while (iterator.hasNext()) {
-                        key = iterator.next();      //grab the next key
-                        region = stringRegionMap.get(key);  //save the keyed region
+                        region = stringRegionMap.get(iterator.next());  //save the keyed region
                         timeTaken = region.getElapsedTime(); //save the elapsed time of that region object
                         sectionPercent = (double) timeTaken / (double) totalTime; //calculate the percentage time within the section
                         region.setPercentOfSection(sectionPercent); //set the percent of section
 
                         //add the region with its label or if it is the section than add it as "TOTAL"
-                        section.addRegion(region != stringRegionMap.get(section.getSectionLabel()) ? key.toString() : "TOTAL", region);
+                        section.addRegion(region != stringRegionMap.get(section.getSectionLabel()) ? iterator.next().toString() : "TOTAL", region);
                     }
                     //clear map for new section
                     stringRegionMap = new HashMap<>();
@@ -186,10 +184,8 @@ public class Profiler {
                     if (markStack.isEmpty()) throw new EmptyStackException(); //is stack Empty
 
                     mark = markStack.pop(); //pop most recent mark and save it
-                    label = mark.label; //save the label name
-                    region = stringRegionMap.get(label); //save the region object for efficiency
-                    timeTaken = myMark.time - mark.time; //find time taken
-                    region.addElapsedTime(timeTaken); //add it to the mark's time
+                    region = stringRegionMap.get(mark.label);
+                    region.addElapsedTime(myMark.time - mark.time); //find time taken
                     break;
             }
         }
