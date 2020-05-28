@@ -36,40 +36,45 @@ public class MainSerialize {
 //        serializer.write(tuple);
 
         //Starting code
-//        serializer.register(Integer.SERIAL_ID, Integer::new);
-//        serializer.register(String.SERIAL_ID, String::new);
-//        serializer.register(Box.SERIAL_ID, Box::new);
 
-//        Integer i = new Integer(1234);
-//        String s = new String("hi,");
-//        Box<String> bs = new Box<>(new String("there."));
-//
-//        serializer.write(i);
-//        serializer.write(s);
-//        serializer.write(bs);
+        serializer.register(Integer.SERIAL_ID, Integer::new);
+        serializer.register(String.SERIAL_ID, String::new);
+        serializer.register(Box.SERIAL_ID, Box::new);
+
+        Integer i = new Integer(1234);
+        String s = new String("hi,");
+        Box<String> bs = new Box<>(new String("there."));
+
+        serializer.write(i);
+        serializer.write(s);
+        serializer.write(bs);
 
         //IPAdress
-//        IPAddress ip = new IPAddress("192.168.2.1");
-//        serializer.write(ip);
+
+        IPAddress ip = new IPAddress("192.168.2.1");
+        serializer.write(ip);
 
         //Date
-//        Date date = new Date(new java.util.Date());
-//        serializer.write(date);
+
+        Date date = new Date(new java.util.Date());
+        serializer.write(date);
 
 
         //Grade
-//        serializer.register(Grade.SERIAL_ID, Grade::new);
-//        Grade grade = new Grade("John", 90, new java.util.Date());
-//        serializer.write(grade);
+
+        serializer.register(Grade.SERIAL_ID, Grade::new);
+        Grade grade = new Grade("John", 90, new java.util.Date());
+        serializer.write(grade);
 //
 
         //Either
-//        serializer.register(Either.LeftEither.SERIAL_ID, Either.LeftEither::new);
-//        serializer.register(Either.RightEither.SERIAL_ID, Either.LeftEither::new);
-//        Either.LeftEither leftEither = new Either.LeftEither<>(new Integer(1));
-//        Either.RightEither rightEither = new Either.RightEither<>(new Integer(2));
-//        serializer.write(leftEither);
-//        serializer.write(rightEither);
+
+        serializer.register(Either.LeftEither.SERIAL_ID, Either.LeftEither::new);
+        serializer.register(Either.RightEither.SERIAL_ID, Either.LeftEither::new);
+        Either.LeftEither leftEither = new Either.LeftEither<>(new Integer(1));
+        Either.RightEither rightEither = new Either.RightEither<>(new Integer(2));
+        serializer.write(leftEither);
+        serializer.write(rightEither);
 
         //LinkedList
         LinkedList linkedList = new LinkedList();
@@ -77,6 +82,7 @@ public class MainSerialize {
         linkedList.add(new Integer(14));
         serializer.write(linkedList);
 
+        //Hashmap and TreeSet not working (not done)
         //HashMap
 //        HashMap hashMap = new HashMap();
 

@@ -106,7 +106,7 @@ public interface Either<S, T> extends Serializable {
 
         @Override
         public void deserialize(Serializer serializer) throws IOException, SerializationException {
-            val = (S) serializer.readSerializable();
+            this.val = (S) serializer.readSerializable();
         }
     }
 
@@ -161,7 +161,7 @@ public interface Either<S, T> extends Serializable {
 
         @Override
         public void deserialize(Serializer serializer) throws IOException, SerializationException {
-            val = (T) serializer.readSerializable();
+            this.val = (T) serializer.readSerializable();
         }
     }
 }

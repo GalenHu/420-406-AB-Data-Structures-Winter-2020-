@@ -28,24 +28,30 @@ public class LinkedList<T extends Serializable> implements List<T>, Serializable
 
     @Override
     public void serialize(Serializer serializer) throws IOException {
+        //serialize the size
         serializer.write(this.size);
         Link<T> current = this.head;
+        //For each element, serialize it
         while (current != this.last){
             serializer.write(current.element);
             current = current.next;
         }
+        //Serialize the last element
         serializer.write(this.last.element);
     }
 
     @Override
     public void deserialize(Serializer serializer) throws IOException, SerializationException {
+        //Read the last element
     this.size = serializer.readInt();
     Link current = this.head = new Link(serializer.readSerializable());
+    //read each element
         for (int i = 1; i < this.size ; i++) {
             current.next = new Link(serializer.readSerializable());
 
             current = current.next;
 
+            //Last element is read
             if (i == this.size-1)
                 this.last = current;
         }

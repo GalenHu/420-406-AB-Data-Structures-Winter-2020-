@@ -43,41 +43,49 @@ public class MainDeserialize {
 //        System.out.println(tuple);
 
         //Starting code
-//        serializer.register(Integer.SERIAL_ID, Integer::new);
-//        serializer.register(String.SERIAL_ID, String::new);
-//        serializer.register(Box.SERIAL_ID, Box::new);
-//
-//        Integer i = (Integer) serializer.readSerializable();
-//        String s = (String) serializer.readSerializable();
-//        Box<String> bs = (Box<String>) serializer.readSerializable();
-//
-//        System.out.println(i);
-//        System.out.println(s);
-//        System.out.println(bs);
+        System.out.println("starting code\n");
+        serializer.register(Integer.SERIAL_ID, Integer::new);
+        serializer.register(String.SERIAL_ID, String::new);
+        serializer.register(Box.SERIAL_ID, Box::new);
+
+        Integer i = (Integer) serializer.readSerializable();
+        String s = (String) serializer.readSerializable();
+        Box<String> bs = (Box<String>) serializer.readSerializable();
+
+        System.out.println(i);
+        System.out.println(s);
+        System.out.println(bs);
 
         //IP address
-//        serializer.register(IPAddress.SERIAL_ID, IPAddress::new);
-//        IPAddress ip = (IPAddress) serializer.readSerializable();
-//        System.out.println(ip);
+        System.out.println("IPAddress\n");
+        serializer.register(IPAddress.SERIAL_ID, IPAddress::new);
+        IPAddress ip = (IPAddress) serializer.readSerializable();
+        System.out.println(ip);
 //
         //Date
-//        serializer.register(Date.SERIAL_ID, Date::new);
-//        Date date = (Date) serializer.readSerializable();
-//        System.out.println(date);
+        System.out.println("Date\n");
+        serializer.register(Date.SERIAL_ID, Date::new);
+        Date date = (Date) serializer.readSerializable();
+        System.out.println(date);
 
 
         //Grade
-//        serializer.register(Grade.SERIAL_ID, Grade::new);
-//        Grade grade = (Grade) serializer.readSerializable();
-//        System.out.println(grade);
+        System.out.println("Grade\n");
+        serializer.register(Grade.SERIAL_ID, Grade::new);
+        Grade grade = (Grade) serializer.readSerializable();
+        System.out.println(grade);
 
         //Either
-//        serializer.register(Either.LeftEither.SERIAL_ID, Either.LeftEither::new);
-//        serializer.register(Either.LeftEither.SERIAL_ID, Either.RightEither::new);
-//        serializer.register(Either.LeftEither.SERIAL_ID, Either.LeftEither::new);
-//        serializer.register(Either.RightEither.SERIAL_ID, Either.RightEither::new);
+        System.out.println("Either\n");
+        serializer.register(Either.LeftEither.SERIAL_ID, Either.LeftEither::new);
+        serializer.register(Either.RightEither.SERIAL_ID, Either.RightEither::new);
+        Either.LeftEither leftEither = (Either.LeftEither) serializer.readSerializable();
+        Either.RightEither rightEither = (Either.RightEither) serializer.readSerializable();
+        System.out.println(leftEither.getLeft());
+        System.out.println(rightEither.getRight());
 
         //Linked List
+        System.out.println("LinkedList\n");
         serializer.register(LinkedList.SERIAL_ID, LinkedList::new);
         LinkedList linkedList = (LinkedList) serializer.readSerializable();
         serializer.write(linkedList);
